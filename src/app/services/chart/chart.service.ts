@@ -4,9 +4,14 @@ import { MathService } from '../math/math.service';
 import { BmiClass } from 'src/app/models/bmi';
 import { FormatService } from '../format/format.service';
 
+export interface Extra {
+    characters: Character[];
+}
+
 export interface SeriesData {
   name: string;
   value: number;
+  extra: Extra;
 }
 
 export interface MultiSeriesData {
@@ -36,16 +41,23 @@ export class ChartService {
                 : eyeColorsWithValues.set(gender, [{
                     name: eyeColor,
                     value: 0,
+                    extra: {
+                        characters: []
+                    },
                 }]);
 
                 const existingGender = eyeColorsWithValues.get(gender).find(color => color.name === eyeColor);
 
                 if (existingGender) {
                     existingGender.value += 1;
+                    existingGender.extra.characters = [...existingGender.extra.characters, char];
                 } else {
                     eyeColorsWithValues.get(gender).push({
                         name: eyeColor,
                         value: 1,
+                        extra: {
+                            characters: [char]
+                        }
                     });
                 }
         });
@@ -59,7 +71,7 @@ export class ChartService {
     }
 
     charactersToBmiData(characters: Character[]): SeriesData[] {
-        const bmiWithClasses = new Map<BmiClass, number>();
+        const bmiWithClasses = new Map<BmiClass, { val: number, characters: Character[] }>();
         
         characters.forEach((char) => {
             const mass = parseFloat(char.mass);
@@ -72,13 +84,16 @@ export class ChartService {
                 : BmiClass.UNKNOWN;
 
             bmiWithClasses.has(obesityClass)
-                ? bmiWithClasses.set(obesityClass, bmiWithClasses.get(obesityClass) + 1)
-                : bmiWithClasses.set(obesityClass, 1);
+                ? bmiWithClasses.set(obesityClass, { val: bmiWithClasses.get(obesityClass).val + 1, characters: [...bmiWithClasses.get(obesityClass).characters, char] })
+                : bmiWithClasses.set(obesityClass, { val: 1, characters: [char]});
         });
 
         const bmiClasses: SeriesData[] = Array.from(bmiWithClasses).map(bmi => ({
             name: bmi[0],
-            value: bmi[1],
+            value: bmi[1].val,
+            extra: {
+                characters: bmi[1].characters
+            },
         })).sort(this.sortBmiData.bind(this));
 
         return bmiClasses;
