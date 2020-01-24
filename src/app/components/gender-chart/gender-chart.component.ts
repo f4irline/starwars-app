@@ -4,6 +4,7 @@ import { tap, map } from 'rxjs/operators';
 import { countryPopulation } from 'src/app/dummy-data/country-population';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ChartService, MultiSeriesData } from 'src/app/services/chart/chart.service';
+import { CharacterService } from 'src/app/services/character/character.service';
 
 interface GenderData {
   eyeColor: string;
@@ -33,13 +34,13 @@ export class GenderChartComponent implements OnInit {
   private readonly heightChange: BehaviorSubject<number>;
 
   constructor(
-    private apiService: ApiService,
+    private characterService: CharacterService,
     private chartService: ChartService,
   ) {
     this.heightChange = new BehaviorSubject<number>(0);
     this.height$ = this.heightChange.asObservable();
 
-    this.data$ = this.apiService.getCharacters(5).pipe(
+    this.data$ = this.characterService.characters$.pipe(
       map(res => this.chartService.charactersToGenderByEyeColor(res))
     );
   }

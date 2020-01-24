@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ChartService, SeriesData } from 'src/app/services/chart/chart.service';
+import { CharacterService } from 'src/app/services/character/character.service';
 
 @Component({
   selector: 'app-bmi-chart',
@@ -27,13 +28,13 @@ export class BmiChartComponent implements OnInit {
   private readonly heightChange: BehaviorSubject<number>;
 
   constructor(
-    private apiService: ApiService,
+    private characterService: CharacterService,
     private chartService: ChartService,
   ) {
     this.heightChange = new BehaviorSubject<number>(0);
     this.height$ = this.heightChange.asObservable();
 
-    this.data$ = this.apiService.getCharacters(5).pipe(
+    this.data$ = this.characterService.characters$.pipe(
       map(res => this.chartService.charactersToBmiData(res))
     );
   }
