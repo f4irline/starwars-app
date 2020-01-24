@@ -53,7 +53,7 @@ export class ChartService {
         const gendersByEyeColor: MultiSeriesData[] = Array.from(eyeColorsWithValues).map(color => ({
             name: color[0],
             series: color[1],
-        }))
+        }));
 
         return gendersByEyeColor;
     }

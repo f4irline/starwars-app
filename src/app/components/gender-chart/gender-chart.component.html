@@ -16,3 +16,12 @@
     (deactivate)="onDeactivate($event)">
   </ngx-charts-bar-vertical-2d>
 </div>
+<div class="search">
+  <mat-form-field>
+    <input
+      matInput 
+      placeholder="Eye color"
+      [ngModel]="eyeColorSearch$ | async"
+      (ngModelChange)="searchChanged($event)">
+  </mat-form-field>
+</div>

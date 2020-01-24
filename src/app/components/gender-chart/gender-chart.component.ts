@@ -1,8 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ApiService } from 'src/app/services/api/api.service';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, filter } from 'rxjs/operators';
 import { countryPopulation } from 'src/app/dummy-data/country-population';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { ChartService, MultiSeriesData } from 'src/app/services/chart/chart.service';
 import { CharacterService } from 'src/app/services/character/character.service';
 
@@ -17,6 +17,9 @@ interface GenderData {
   styleUrls: ['./gender-chart.component.scss']
 })
 export class GenderChartComponent implements OnInit {
+  eyeColorSearch$: Observable<string>;
+  eyeColorSearchChange: BehaviorSubject<string>;
+
   showXAxis: boolean = true;
   showYAxis: boolean = true;
   gradient: boolean = true;
@@ -40,9 +43,16 @@ export class GenderChartComponent implements OnInit {
     this.heightChange = new BehaviorSubject<number>(0);
     this.height$ = this.heightChange.asObservable();
 
-    this.data$ = this.characterService.characters$.pipe(
-      map(res => this.chartService.charactersToGenderByEyeColor(res))
-    );
+    this.eyeColorSearchChange = new BehaviorSubject<string>('');
+    this.eyeColorSearch$ = this.eyeColorSearchChange.asObservable();
+
+    this.data$ = combineLatest(
+      this.eyeColorSearch$,
+      this.characterService.characters$,
+    ).pipe(
+      map(([term, characters]) => characters.filter((char) => this.filterBySearchTerm(char.eye_color, term))),
+      map((characters) => this.chartService.charactersToGenderByEyeColor(characters)),
+    )
   }
 
   @HostListener('window:resize', ['$event'])
@@ -52,6 +62,14 @@ export class GenderChartComponent implements OnInit {
 
   ngOnInit() {
     this.heightChange.next(window.innerHeight / 2.5);
+  }
+
+  searchChanged(term: string): void {
+    this.eyeColorSearchChange.next(term);
+  }
+
+  filterBySearchTerm(searchedValue: string, searchTerm: string): boolean {
+    return searchedValue.toLowerCase().includes(searchTerm.toLowerCase());
   }
 
   onSelect(data): void {
