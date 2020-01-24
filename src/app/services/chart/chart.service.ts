@@ -1,17 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Character } from 'src/app/models/character';
-import { countryPopulationSingle } from 'src/app/dummy-data/country-population-single';
 import { MathService } from '../math/math.service';
-
-export enum BmiClass {
-    UNDERWEIGHT = 'Underweight',
-    NORMAL = 'Normal',
-    OVERWEIGHT = 'Overweight',
-    CLASS_1_OBESE = 'Class 1 obese',
-    CLASS_2_OBESE = 'Class 2 obese',
-    CLASS_3_OBESE = 'Class 3 obese',
-    UNKNOWN = 'Unknown',
-};
+import { BmiClass } from 'src/app/models/bmi';
 
 export interface SeriesData {
   name: string;

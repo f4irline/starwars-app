@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BmiClass } from '../chart/chart.service';
+import { BmiClass } from 'src/app/models/bmi';
 
 @Injectable({
   providedIn: 'root'
