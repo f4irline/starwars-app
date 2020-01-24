@@ -20,13 +20,26 @@ export class HomeComponent implements OnInit {
   ) {
     this.loading$ = this.applicationService.loading$;
 
+    this.reloadData();
+  }
+
+  ngOnInit() {
+  }
+
+  reloadData(): void {
+    this.applicationService.loadingChange.next(true);
     this.apiService.getCharacters(5).pipe(
       take(1),
       tap(() => this.applicationService.loadingChange.next(false)),
     ).subscribe(characters => this.characterService.charactersChange.next(characters));
   }
 
-  ngOnInit() {
+  reloadPageData(): void {
+    const randomPage = Math.floor(Math.random() * 9 + 1);
+    this.applicationService.loadingChange.next(true);
+    this.apiService.getPageOfCharacters(randomPage).pipe(
+      take(1),
+      tap(() => this.applicationService.loadingChange.next(false)),
+    ).subscribe(characters => this.characterService.charactersChange.next(characters));
   }
-
 }

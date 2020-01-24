@@ -18,6 +18,14 @@
         }
     }
 
+    .actions {
+        display: flex;
+        align-self: flex-start;
+        justify-content: space-evenly;
+        margin: 15px 0;
+        width: 100%;
+    }
+
     .spinner {
         position: absolute;
         display: flex;

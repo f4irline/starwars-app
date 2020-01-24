@@ -20,12 +20,16 @@ export class ApiService {
 
     return forkJoin(
       pagesArray.map(
-        page => this.http.get<SWAPI>(`${this.rootUrl}/people/?page=${page}`).pipe(
-          map(swapi => swapi.results as Character[])
-        )
+        page => this.getPageOfCharacters(page)
       ),
     ).pipe(
       map((pages) => [].concat.apply([], pages))
+    )
+  }
+
+  getPageOfCharacters(page: number): Observable<Character[]> {
+    return this.http.get<SWAPI>(`${this.rootUrl}/people/?page=${page}`).pipe(
+      map(swapi => swapi.results as Character[])
     )
   }
 }
