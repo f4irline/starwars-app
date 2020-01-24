@@ -1,15 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { ApiService } from 'src/app/services/api/api.service';
-import { tap, map, filter } from 'rxjs/operators';
-import { countryPopulation } from 'src/app/dummy-data/country-population';
+import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { ChartService, MultiSeriesData } from 'src/app/services/chart/chart.service';
 import { CharacterService } from 'src/app/services/character/character.service';
-
-interface GenderData {
-  eyeColor: string;
-  gender: string;
-}
 
 @Component({
   selector: 'app-gender-chart',
