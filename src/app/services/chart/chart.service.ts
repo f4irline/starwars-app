@@ -18,7 +18,7 @@ export interface MultiSeriesData {
   providedIn: 'root'
 })
 export class ChartService {
-
+    sortedBmiClasses = Object.values(BmiClass);
     constructor(
         private mathService: MathService,
         private formatService: FormatService,
@@ -79,8 +79,12 @@ export class ChartService {
         const bmiClasses: SeriesData[] = Array.from(bmiWithClasses).map(bmi => ({
             name: bmi[0],
             value: bmi[1],
-        }));
+        })).sort(this.sortBmiData.bind(this));
 
         return bmiClasses;
+    }
+
+    private sortBmiData(a: SeriesData, b: SeriesData): number {
+        return this.sortedBmiClasses.indexOf(a.name as BmiClass) - this.sortedBmiClasses.indexOf(b.name as BmiClass);
     }
 }
