@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
   reloadData(): void {
     this.applicationService.loadingChange.next(true);
-    this.apiService.getCharacters(5).pipe(
+    this.apiService.getCharacters(9).pipe(
       take(1),
       tap(() => this.applicationService.loadingChange.next(false)),
     ).subscribe(characters => this.characterService.charactersChange.next(characters));

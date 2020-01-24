@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Character } from 'src/app/models/character';
 import { MathService } from '../math/math.service';
 import { BmiClass } from 'src/app/models/bmi';
+import { FormatService } from '../format/format.service';
 
 export interface SeriesData {
   name: string;
@@ -20,27 +21,30 @@ export class ChartService {
 
     constructor(
         private mathService: MathService,
+        private formatService: FormatService,
     ) { }
 
     charactersToGenderByEyeColor(characters: Character[]): MultiSeriesData[] {
         const eyeColorsWithValues = new Map<string, SeriesData[]>();
         characters.forEach(char => {
-            eyeColorsWithValues.has(char.eye_color)
-                ? eyeColorsWithValues.set(char.eye_color, [
-                    ...eyeColorsWithValues.get(char.eye_color),
+            const gender = char.gender === 'n/a' ? 'None' : this.formatService.capitalizeFirstCharacter(char.gender);
+            const eyeColor = this.formatService.capitalizeFirstCharacter(char.eye_color);
+            eyeColorsWithValues.has(gender)
+                ? eyeColorsWithValues.set(gender, [
+                    ...eyeColorsWithValues.get(gender),
                 ])
-                : eyeColorsWithValues.set(char.eye_color, [{
-                    name: char.gender,
+                : eyeColorsWithValues.set(gender, [{
+                    name: eyeColor,
                     value: 0,
                 }]);
 
-                const existingGender = eyeColorsWithValues.get(char.eye_color).find(color => color.name === char.gender);
+                const existingGender = eyeColorsWithValues.get(gender).find(color => color.name === eyeColor);
 
                 if (existingGender) {
                     existingGender.value += 1;
                 } else {
-                    eyeColorsWithValues.get(char.eye_color).push({
-                        name: char.gender,
+                    eyeColorsWithValues.get(gender).push({
+                        name: eyeColor,
                         value: 1,
                     });
                 }
