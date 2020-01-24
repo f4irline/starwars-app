@@ -4,13 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule, MatDividerModule } from '@angular/material';
 import { GenderChartComponent } from './components/gender-chart/gender-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BmiChartComponent } from './components/bmi-chart/bmi-chart.component';
-import { MathService } from './services/math/math.service';
 
 @NgModule({
   declarations: [
@@ -22,14 +20,12 @@ import { MathService } from './services/math/math.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NoopAnimationsModule,
     MatDividerModule,
     HttpClientModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatProgressSpinnerModule
   ],
-  providers: [
-    MathService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
