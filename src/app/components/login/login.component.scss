@@ -25,7 +25,28 @@
             }
 
             .action {
-                align-self: flex-start;
+                min-height: 80px;
+
+                button {
+                    width: 80px;
+                    height: 40px;
+                }
+
+                p {
+                    color: #FF3333;
+                    font-weight: bold;
+                    opacity: 0;
+                    transition: 0.5s ease;
+
+                    &.login-error {
+                        opacity: 1;
+                    }
+                }
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
             }
         }
     }
