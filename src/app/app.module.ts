@@ -7,17 +7,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { MatProgressSpinnerModule, MatDividerModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatDividerModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDialogModule } from '@angular/material';
 import { GenderChartComponent } from './components/gender-chart/gender-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BmiChartComponent } from './components/bmi-chart/bmi-chart.component';
+import { CharacterListComponent } from './components/character-list/character-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GenderChartComponent,
-    BmiChartComponent
+    BmiChartComponent,
+    CharacterListComponent
   ],
   imports: [
     BrowserModule,
@@ -30,9 +32,11 @@ import { BmiChartComponent } from './components/bmi-chart/bmi-chart.component';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CharacterListComponent]
 })
 export class AppModule { }

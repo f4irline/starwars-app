@@ -1,0 +1,32 @@
+:host {
+    .modal-wrapper {
+        .list-wrapper {
+            ul {
+                margin: 0;
+                padding: 0;
+
+                .item-wrapper, .header-wrapper {
+                    display: flex;
+                    padding: 5px 2px;
+
+                    .property {
+                        flex: 1;
+                    }
+                }
+
+                .header-wrapper .property {
+                    font-weight: bold;
+                }
+
+                li {
+                    list-style: none;
+                    width: 100%;
+
+                    &:nth-child(odd) {
+                        background-color: #eee;
+                    }
+                }
+            }
+        }
+    }
+}

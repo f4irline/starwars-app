@@ -1,0 +1,19 @@
+<div class="modal-wrapper">
+    <div class="list-wrapper">
+        <ul>
+            <div class="header-wrapper">
+                <div class="name property">Name</div>
+                <div class="property">Height</div>
+                <div class="property">Mass</div>    
+            </div>
+            <mat-divider></mat-divider>
+            <li *ngFor="let character of characters">
+                <div class="item-wrapper">
+                    <div class="name property">{{ character.name }}</div>
+                    <div class="property">{{ getHeightInMetersString(character.height) }}</div>
+                    <div class="property">{{ getMassString(character.mass) }}</div>    
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

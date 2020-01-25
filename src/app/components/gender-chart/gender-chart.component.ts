@@ -1,8 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { ChartService, MultiSeriesData } from 'src/app/services/chart/chart.service';
+import { ChartService, MultiSeriesData, SeriesData } from 'src/app/services/chart/chart.service';
 import { CharacterService } from 'src/app/services/character/character.service';
+import { MatDialog } from '@angular/material';
+import { CharacterListComponent } from '../character-list/character-list.component';
 
 @Component({
   selector: 'app-gender-chart',
@@ -32,6 +34,7 @@ export class GenderChartComponent implements OnInit {
   constructor(
     private characterService: CharacterService,
     private chartService: ChartService,
+    private dialog: MatDialog,
   ) {
     this.heightChange = new BehaviorSubject<number>(0);
     this.height$ = this.heightChange.asObservable();
@@ -65,7 +68,11 @@ export class GenderChartComponent implements OnInit {
     return searchedValue.toLowerCase().includes(searchTerm.toLowerCase());
   }
 
-  onSelect(data): void {
+  onSelect(data: SeriesData): void {
+    this.dialog.open(CharacterListComponent, {
+      width: '800px',
+      data: data.extra.characters
+    });
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 }

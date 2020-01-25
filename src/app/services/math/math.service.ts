@@ -9,7 +9,7 @@ export class MathService {
   constructor() { }
 
   calculateBmi(mass: number, height: number): number {
-    const heightInMeters = height / 100;
+    const heightInMeters = this.convertCmToMeters(height);
     return mass / (heightInMeters * heightInMeters);
   }
 
@@ -25,5 +25,9 @@ export class MathService {
             : bmi >= 18.5
               ? BmiClass.NORMAL
               : BmiClass.UNDERWEIGHT;
+  }
+
+  convertCmToMeters(centimeters: number): number {
+    return centimeters / 100;
   }
 }
