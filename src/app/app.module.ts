@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+import { JwtModule } from '@auth0/angular-jwt';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -13,6 +15,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BmiChartComponent } from './components/bmi-chart/bmi-chart.component';
 import { CharacterListComponent } from './components/character-list/character-list.component';
 import { LoginComponent } from './components/login/login.component';
+
+function getToken() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -36,7 +42,13 @@ import { LoginComponent } from './components/login/login.component';
     MatInputModule,
     FormsModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getToken,
+        whitelistedDomains: ['localhost:8080'],
+      }
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

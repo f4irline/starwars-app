@@ -4,12 +4,15 @@ import { Observable, forkJoin } from 'rxjs';
 import { Character } from 'src/app/models/character';
 import { map, tap, takeWhile, mergeMap, switchMap, takeUntil} from 'rxjs/operators';
 import { SWAPI } from 'src/app/models/swapi';
+import { User } from 'src/app/models/user';
+import { Token } from 'src/app/models/token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private rootUrl: string = 'https://swapi.co/api';
+  private swapiUrl: string = 'https://swapi.co/api';
+  private rootUrl: string = 'http://localhost:8080/api';
 
   constructor(
     private http: HttpClient
@@ -28,8 +31,16 @@ export class ApiService {
   }
 
   getPageOfCharacters(page: number): Observable<Character[]> {
-    return this.http.get<SWAPI>(`${this.rootUrl}/people/?page=${page}`).pipe(
+    return this.http.get<SWAPI>(`${this.swapiUrl}/people/?page=${page}`).pipe(
       map(swapi => swapi.results as Character[])
     )
+  }
+
+  login(auth: {userName: string, password: string}): Observable<Token> {
+    return this.http.post<Token>(`${this.rootUrl}/login`, auth);
+  }
+
+  profile(): Observable<User> {
+    return this.http.get<User>(`${this.rootUrl}/profile`);
   }
 }
