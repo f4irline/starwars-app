@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
     errorString: string = '';
     loginFailed: boolean = false;
+    hide: boolean = true;
 
     constructor(
         private apiService: ApiService,

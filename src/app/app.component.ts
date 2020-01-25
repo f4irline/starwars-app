@@ -16,6 +16,8 @@ export class AppComponent {
   ) {
     this.iconRegistry.addSvgIcon('arrow-up', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/arrow_up.svg'));
     this.iconRegistry.addSvgIcon('arrow-down', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/arrow_down.svg'));
-    this.iconRegistry.addSvgIcon('unfold-more', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/unfold_more.svg'))
+    this.iconRegistry.addSvgIcon('unfold-more', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/unfold_more.svg'));
+    this.iconRegistry.addSvgIcon('visibility', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/visibility.svg'));
+    this.iconRegistry.addSvgIcon('visibility-off', this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/visibility_off.svg'))
   }
 }
