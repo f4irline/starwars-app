@@ -1,0 +1,32 @@
+:host {
+    h1 {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .login {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .fields-container {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .action {
+                align-self: flex-start;
+            }
+        }
+    }
+}

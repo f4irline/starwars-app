@@ -12,6 +12,7 @@ import { GenderChartComponent } from './components/gender-chart/gender-chart.com
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BmiChartComponent } from './components/bmi-chart/bmi-chart.component';
 import { CharacterListComponent } from './components/character-list/character-list.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CharacterListComponent } from './components/character-list/character-li
     HomeComponent,
     GenderChartComponent,
     BmiChartComponent,
-    CharacterListComponent
+    CharacterListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
