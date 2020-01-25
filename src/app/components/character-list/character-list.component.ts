@@ -4,13 +4,13 @@ import { Character } from 'src/app/models/character';
 import { MathService } from 'src/app/services/math/math.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-enum SortByProperty {
+export enum SortByProperty {
   MASS = 'mass',
   HEIGHT = 'height',
   NONE = 'none',
 }
 
-interface SortingBy {
+export interface SortingBy {
   property: SortByProperty;
   descending?: boolean;
 }
