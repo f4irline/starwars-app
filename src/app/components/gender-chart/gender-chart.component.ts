@@ -5,6 +5,7 @@ import { ChartService, MultiSeriesData, SeriesData } from 'src/app/services/char
 import { CharacterService } from 'src/app/services/character/character.service';
 import { MatDialog } from '@angular/material';
 import { CharacterListComponent } from '../character-list/character-list.component';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-gender-chart',
@@ -35,6 +36,7 @@ export class GenderChartComponent implements OnInit {
     private characterService: CharacterService,
     private chartService: ChartService,
     private dialog: MatDialog,
+    private overlay: Overlay,
   ) {
     this.heightChange = new BehaviorSubject<number>(0);
     this.height$ = this.heightChange.asObservable();
@@ -71,7 +73,8 @@ export class GenderChartComponent implements OnInit {
   onSelect(data: SeriesData): void {
     this.dialog.open(CharacterListComponent, {
       width: '800px',
-      data: data.extra.characters
+      data: data.extra.characters,
+      scrollStrategy: this.overlay.scrollStrategies.noop(),
     });
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
