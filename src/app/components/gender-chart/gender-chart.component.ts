@@ -76,6 +76,5 @@ export class GenderChartComponent implements OnInit {
       data: data.extra.characters,
       scrollStrategy: this.overlay.scrollStrategies.noop(),
     });
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 }

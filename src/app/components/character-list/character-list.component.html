@@ -3,8 +3,20 @@
         <ul>
             <div class="header-wrapper">
                 <div class="name property">Name</div>
-                <div class="property">Height</div>
-                <div class="property">Mass</div>    
+                <ng-container *ngIf="sortBy$ | async; let sortingBy">
+                    <div class="property">
+                        <button mat-button (click)="sortBy('height')">
+                            Height
+                            <mat-icon svgIcon="{{getIconString(sortingBy, sortByProperty.HEIGHT)}}"></mat-icon>    
+                        </button>
+                    </div>
+                    <div class="property">
+                        <button mat-button (click)="sortBy('mass')">
+                            Mass
+                            <mat-icon svgIcon="{{getIconString(sortingBy, sortByProperty.MASS)}}"></mat-icon>    
+                        </button>
+                    </div>    
+                </ng-container>
             </div>
             <mat-divider></mat-divider>
             <li *ngFor="let character of characters">

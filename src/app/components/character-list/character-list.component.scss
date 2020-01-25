@@ -16,6 +16,12 @@
 
                 .header-wrapper .property {
                     font-weight: bold;
+                    display: flex;
+                    align-items: center;
+
+                    button {
+                        padding: 0 2px;
+                    }
                 }
 
                 li {
