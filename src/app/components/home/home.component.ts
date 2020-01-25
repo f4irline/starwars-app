@@ -4,6 +4,7 @@ import { take, tap } from 'rxjs/operators';
 import { CharacterService } from 'src/app/services/character/character.service';
 import { ApplicationService } from 'src/app/services/application/application.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
     private apiService: ApiService,
     private characterService: CharacterService,
     private applicationService: ApplicationService,
+    private router: Router,
   ) {
     this.loading$ = this.applicationService.loading$;
 
@@ -41,5 +43,11 @@ export class HomeComponent implements OnInit {
       take(1),
       tap(() => this.applicationService.loadingChange.next(false)),
     ).subscribe(characters => this.characterService.charactersChange.next(characters));
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.router.navigateByUrl('');
   }
 }
