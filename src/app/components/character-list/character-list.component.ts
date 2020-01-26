@@ -86,8 +86,8 @@ export class CharacterListComponent implements OnInit {
   getIconString(sortBy: SortingBy, property: SortByProperty): string {
     return sortBy.property === property
       ? sortBy.descending
-        ? 'arrow-down'
-        : 'arrow-up'
-      : 'unfold-more';
+        ? 'arrow_down'
+        : 'arrow_up'
+      : 'unfold_more';
   }
 }
