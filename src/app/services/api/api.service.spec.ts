@@ -6,6 +6,7 @@ describe('ApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
+    pending();
     const service: ApiService = TestBed.get(ApiService);
     expect(service).toBeTruthy();
   });

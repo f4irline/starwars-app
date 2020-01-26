@@ -20,6 +20,7 @@ describe('LoginComponent', () => {
   });
 
   it('should create', () => {
+    pending();
     expect(component).toBeTruthy();
   });
 });
