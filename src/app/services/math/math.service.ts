@@ -9,8 +9,10 @@ export class MathService {
   constructor() { }
 
   calculateBmi(mass: number, height: number): number {
+    if (!height) { throw new Error('Can not divide by zero.'); }
     const heightInMeters = this.convertCmToMeters(height);
-    return mass / (heightInMeters * heightInMeters);
+    const bmi = Math.round(mass / (heightInMeters * heightInMeters) * 10) / 10;
+    return bmi;
   }
 
   getObesityClass(bmi: number): BmiClass {

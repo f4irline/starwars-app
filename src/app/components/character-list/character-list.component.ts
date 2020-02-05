@@ -32,10 +32,10 @@ export class CharacterListComponent implements OnInit {
       this.sortBy$ = this.sortByChange.asObservable();
       this.sortByChange.subscribe((sortBy) => {
         if (sortBy.property === SortByProperty.NONE) { return; }
-        this.characters = sortBy.property === SortByProperty.MASS 
-          ? this.sortByMass(sortBy.descending) 
+        this.characters = sortBy.property === SortByProperty.MASS
+          ? this.sortByMass(sortBy.descending)
           : this.sortByHeight(sortBy.descending);
-      })
+      });
     }
 
   onNoClick(): void {
@@ -56,7 +56,7 @@ export class CharacterListComponent implements OnInit {
 
   sortBy(property: SortByProperty): void {
     this.sortByChange.next({
-      property: property,
+      property,
       descending: this.sortByChange.getValue().property ? !this.sortByChange.getValue().descending : true,
     });
   }
