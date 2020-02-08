@@ -6,10 +6,13 @@ import { finalize } from 'rxjs/operators';
 import { Token } from 'src/app/models/token';
 
 describe('ApiService', () => {
-    let httpClientSpy: { get: jasmine.Spy; post: jasmine.Spy };
+    let httpClientSpy: { get: jest.Mock; post: jest.Mock };
     let service: ApiService;
     beforeEach(() => {
-        httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
+        httpClientSpy = {
+            get: jest.fn(),
+            post: jest.fn(),
+        };
         service = new ApiService(<any>httpClientSpy);
     });
 
@@ -17,7 +20,7 @@ describe('ApiService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should request characters', (done: DoneFn) => {
+    it('should request characters', () => {
         const response: SWAPI = {
             results: [
                 {
@@ -32,39 +35,33 @@ describe('ApiService', () => {
             ],
         } as SWAPI;
 
-        httpClientSpy.get.and.returnValue(of(response));
+        httpClientSpy.get.mockReturnValue(of(response));
         service.getPageOfCharacters(1).subscribe(
-            chars =>
-                expect(chars).toEqual(response.results, 'expected characters'),
-            error => expect(error).toBeTruthy(),
-            () => done()
+            chars => expect(chars).toEqual(response.results),
+            error => expect(error).toBeTruthy()
         );
-        expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
+        expect(httpClientSpy.get.mock.calls.length).toBe(1);
     });
 
-    it('should return an error in login', (done: DoneFn) => {
-        httpClientSpy.post.and.returnValue(
+    it('should return an error in login', () => {
+        httpClientSpy.post.mockReturnValue(
             throwError({ status: 401, msg: 'Wrong username or password.' })
         );
-        service
-            .login({ userName: 'Wrong', password: 'wrong' })
-            .pipe(finalize(() => done()))
-            .subscribe(
-                () => {},
-                error => expect(error.status).toBe(401)
-            );
+        service.login({ userName: 'Wrong', password: 'wrong' }).subscribe(
+            () => {},
+            error => expect(error.status).toBe(401)
+        );
     });
 
-    it('should validate login', (done: DoneFn) => {
+    it('should validate login', () => {
         const token: Token = {
             msg: 'Login successful',
             token: '1234-5678',
         };
 
-        httpClientSpy.post.and.returnValue(of(token));
+        httpClientSpy.post.mockReturnValue(of(token));
         service
             .login({ userName: 'Correct', password: 'correct' })
-            .pipe(finalize(() => done()))
             .subscribe(res => expect(res).toEqual(res));
     });
 });

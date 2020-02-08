@@ -168,14 +168,13 @@ describe('CharacterListComponent', () => {
         expect(result).toEqual(expectedCharacters);
     });
 
-    it('should initially have sorting by property as none', (done: DoneFn) => {
+    it('should initially have sorting by property as none', () => {
         component.sortBy$.subscribe(sortBy => {
             expect(sortBy.property).toEqual(SortByProperty.NONE);
-            done();
         });
     });
 
-    it('should have sorting by property as mass in descending order', (done: DoneFn) => {
+    it('should have sorting by property as mass in descending order', () => {
         component['sortByChange'].next({
             property: SortByProperty.MASS,
             descending: true,
@@ -184,7 +183,6 @@ describe('CharacterListComponent', () => {
         component.sortBy$.subscribe(sortBy => {
             expect(sortBy.property).toEqual(SortByProperty.MASS);
             expect(sortBy.descending).toBeTruthy();
-            done();
         });
     });
 

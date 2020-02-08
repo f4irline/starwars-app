@@ -11,15 +11,14 @@ describe('CharacterService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should return empty characters array', (done: DoneFn) => {
+    it('should return empty characters array', () => {
         const service: CharacterService = TestBed.get(CharacterService);
         service.characters$.subscribe(characters => {
             expect(characters.length).toBe(0);
-            done();
         });
     });
 
-    it('should return Character 2', (done: DoneFn) => {
+    it('should return Character 2', () => {
         const service: CharacterService = TestBed.get(CharacterService);
         service.charactersChange.next([
             {
@@ -42,7 +41,6 @@ describe('CharacterService', () => {
             expect(characters[1]).toEqual(
                 jasmine.objectContaining({ name: 'Character 2' })
             );
-            done();
         });
     });
 });

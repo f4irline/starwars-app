@@ -33,14 +33,13 @@ describe('BmiChartComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should initially not have data', (done: DoneFn) => {
+    it('should initially not have data', () => {
         component.data$.subscribe(data => {
             expect(data.length).toBe(0);
-            done();
         });
     });
 
-    it('should have some data', (done: DoneFn) => {
+    it('should have some data', () => {
         spyOn(chartService, 'charactersToBmiData').and.returnValue([
             {
                 name: 'Normal',
@@ -49,7 +48,6 @@ describe('BmiChartComponent', () => {
 
         component.data$.subscribe(data => {
             expect(data.length).toBeGreaterThan(0);
-            done();
         });
     });
 });
