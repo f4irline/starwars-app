@@ -11,8 +11,20 @@ import {
     MatDialogModule,
     MatDialogRef,
     MAT_DIALOG_DATA,
+    MatIcon,
 } from '@angular/material';
 import { Character } from 'src/app/models/character';
+import { Component, Input } from '@angular/core';
+
+@Component({
+    selector: 'mat-icon',
+    template: '<span></span>',
+})
+class MockMatIconComponent {
+    @Input() svgIcon: any;
+    @Input() fontSet: any;
+    @Input() fontIcon: any;
+}
 
 describe('CharacterListComponent', () => {
     let component: CharacterListComponent;
@@ -26,7 +38,18 @@ describe('CharacterListComponent', () => {
                 { provide: MatDialogRef, useValue: {} },
                 { provide: MAT_DIALOG_DATA, useValue: [] },
             ],
-        }).compileComponents();
+        })
+            .overrideModule(MatIconModule, {
+                remove: {
+                    declarations: [MatIcon],
+                    exports: [MatIcon],
+                },
+                add: {
+                    declarations: [MockMatIconComponent],
+                    exports: [MockMatIconComponent],
+                },
+            })
+            .compileComponents();
     }));
 
     beforeEach(() => {
