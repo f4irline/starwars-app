@@ -9,18 +9,18 @@ export interface Extra {
 }
 
 export interface SeriesData {
-  name: string;
-  value: number;
-  extra: Extra;
+    name: string;
+    value: number;
+    extra: Extra;
 }
 
 export interface MultiSeriesData {
-  name: string;
-  series: SeriesData[];
+    name: string;
+    series: SeriesData[];
 }
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ChartService {
     sortedBmiClasses = Object.values(BmiClass);

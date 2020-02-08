@@ -1,25 +1,25 @@
 <div class="chart-wrapper" [style.height.px]="height$ | async">
-  <ngx-charts-bar-vertical-2d
-    [scheme]="colorScheme"
-    [results]="data$ | async"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    [legendTitle]="legendTitle"
-    (select)="onSelect($event)">
-  </ngx-charts-bar-vertical-2d>
+    <ngx-charts-bar-vertical-2d
+        [scheme]="colorScheme"
+        [results]="data$ | async"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [legendTitle]="legendTitle"
+        (select)="onSelect($event)">
+    </ngx-charts-bar-vertical-2d>
 </div>
 <div class="search">
-  <mat-form-field appearance="outline">
-    <input
-      matInput 
-      placeholder="Search by eye color"
-      [ngModel]="eyeColorSearch$ | async"
-      (ngModelChange)="searchChanged($event)">
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+        <input
+            matInput 
+            placeholder="Search by eye color"
+            [ngModel]="eyeColorSearch$ | async"
+            (ngModelChange)="searchChanged($event)">
+    </mat-form-field>
 </div>

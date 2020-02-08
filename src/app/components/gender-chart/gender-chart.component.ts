@@ -8,73 +8,73 @@ import { CharacterListComponent } from '../character-list/character-list.compone
 import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
-  selector: 'app-gender-chart',
-  templateUrl: './gender-chart.component.html',
-  styleUrls: ['./gender-chart.component.scss']
+    selector: 'app-gender-chart',
+    templateUrl: './gender-chart.component.html',
+    styleUrls: ['./gender-chart.component.scss']
 })
 export class GenderChartComponent implements OnInit {
-  eyeColorSearch$: Observable<string>;
-  eyeColorSearchChange: BehaviorSubject<string>;
+    eyeColorSearch$: Observable<string>;
+    eyeColorSearchChange: BehaviorSubject<string>;
 
-  showXAxis: boolean = true;
-  showYAxis: boolean = true;
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Eye color';
-  showYAxisLabel: boolean = true;
-  yAxisLabel: string = 'Number';
-  legendTitle: string = 'Legend';
-  colorScheme = 'vivid';
+    showXAxis: boolean = true;
+    showYAxis: boolean = true;
+    gradient: boolean = true;
+    showLegend: boolean = true;
+    showXAxisLabel: boolean = true;
+    xAxisLabel: string = 'Eye color';
+    showYAxisLabel: boolean = true;
+    yAxisLabel: string = 'Number';
+    legendTitle: string = 'Legend';
+    colorScheme = 'vivid';
 
-  data$: Observable<MultiSeriesData[]>;
+    data$: Observable<MultiSeriesData[]>;
 
-  height$: Observable<number>;
-  private readonly heightChange: BehaviorSubject<number>;
+    height$: Observable<number>;
+    private readonly heightChange: BehaviorSubject<number>;
 
-  constructor(
-    private characterService: CharacterService,
-    private chartService: ChartService,
-    private dialog: MatDialog,
-    private overlay: Overlay,
-  ) {
-    this.heightChange = new BehaviorSubject<number>(0);
-    this.height$ = this.heightChange.asObservable();
+    constructor(
+        private characterService: CharacterService,
+        private chartService: ChartService,
+        private dialog: MatDialog,
+        private overlay: Overlay,
+    ) {
+        this.heightChange = new BehaviorSubject<number>(0);
+        this.height$ = this.heightChange.asObservable();
 
-    this.eyeColorSearchChange = new BehaviorSubject<string>('');
-    this.eyeColorSearch$ = this.eyeColorSearchChange.asObservable();
+        this.eyeColorSearchChange = new BehaviorSubject<string>('');
+        this.eyeColorSearch$ = this.eyeColorSearchChange.asObservable();
 
-    this.data$ = combineLatest(
-      this.eyeColorSearch$,
-      this.characterService.characters$,
-    ).pipe(
-      map(([term, characters]) => characters.filter((char) => this.filterBySearchTerm(char.eye_color, term))),
-      map((characters) => this.chartService.charactersToGenderByEyeColor(characters)),
-    )
-  }
+        this.data$ = combineLatest(
+            this.eyeColorSearch$,
+            this.characterService.characters$,
+        ).pipe(
+            map(([term, characters]) => characters.filter((char) => this.filterBySearchTerm(char.eye_color, term))),
+            map((characters) => this.chartService.charactersToGenderByEyeColor(characters)),
+        )
+    }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.heightChange.next(event.target.innerHeight / 2.5);
-  }
+    @HostListener('window:resize', ['$event'])
+    onResize(event: any) {
+        this.heightChange.next(event.target.innerHeight / 2.5);
+    }
 
-  ngOnInit() {
-    this.heightChange.next(window.innerHeight / 2.5);
-  }
+    ngOnInit() {
+        this.heightChange.next(window.innerHeight / 2.5);
+    }
 
-  searchChanged(term: string): void {
-    this.eyeColorSearchChange.next(term);
-  }
+    searchChanged(term: string): void {
+        this.eyeColorSearchChange.next(term);
+    }
 
-  filterBySearchTerm(searchedValue: string, searchTerm: string): boolean {
-    return searchedValue.toLowerCase().includes(searchTerm.toLowerCase());
-  }
+    filterBySearchTerm(searchedValue: string, searchTerm: string): boolean {
+        return searchedValue.toLowerCase().includes(searchTerm.toLowerCase());
+    }
 
-  onSelect(data: SeriesData): void {
-    this.dialog.open(CharacterListComponent, {
-      width: '800px',
-      data: data.extra.characters,
-      scrollStrategy: this.overlay.scrollStrategies.noop(),
-    });
-  }
+    onSelect(data: SeriesData): void {
+        this.dialog.open(CharacterListComponent, {
+            width: '800px',
+            data: data.extra.characters,
+            scrollStrategy: this.overlay.scrollStrategies.noop(),
+        });
+    }
 }

@@ -7,47 +7,47 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  readonly loading$: Observable<boolean>;
+    readonly loading$: Observable<boolean>;
 
-  constructor(
-    private apiService: ApiService,
-    private characterService: CharacterService,
-    private applicationService: ApplicationService,
-    private router: Router,
-  ) {
-    this.loading$ = this.applicationService.loading$;
+    constructor(
+        private apiService: ApiService,
+        private characterService: CharacterService,
+        private applicationService: ApplicationService,
+        private router: Router,
+    ) {
+        this.loading$ = this.applicationService.loading$;
 
-    this.reloadData();
-  }
+        this.reloadData();
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  reloadData(): void {
-    this.applicationService.loadingChange.next(true);
-    this.apiService.getCharacters(9).pipe(
-      take(1),
-      tap(() => this.applicationService.loadingChange.next(false)),
-    ).subscribe(characters => this.characterService.charactersChange.next(characters));
-  }
+    reloadData(): void {
+        this.applicationService.loadingChange.next(true);
+        this.apiService.getCharacters(9).pipe(
+            take(1),
+            tap(() => this.applicationService.loadingChange.next(false)),
+        ).subscribe(characters => this.characterService.charactersChange.next(characters));
+    }
 
-  reloadPageData(): void {
-    const randomPage = Math.floor(Math.random() * 9 + 1);
-    this.applicationService.loadingChange.next(true);
-    this.apiService.getPageOfCharacters(randomPage).pipe(
-      take(1),
-      tap(() => this.applicationService.loadingChange.next(false)),
-    ).subscribe(characters => this.characterService.charactersChange.next(characters));
-  }
+    reloadPageData(): void {
+        const randomPage = Math.floor(Math.random() * 9 + 1);
+        this.applicationService.loadingChange.next(true);
+        this.apiService.getPageOfCharacters(randomPage).pipe(
+            take(1),
+            tap(() => this.applicationService.loadingChange.next(false)),
+        ).subscribe(characters => this.characterService.charactersChange.next(characters));
+    }
 
-  logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.router.navigateByUrl('');
-  }
+    logout(): void {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.router.navigateByUrl('');
+    }
 }

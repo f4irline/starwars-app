@@ -17,41 +17,41 @@ import { CharacterListComponent } from './components/character-list/character-li
 import { LoginComponent } from './components/login/login.component';
 
 function getToken() {
-  return localStorage.getItem('token');
+    return localStorage.getItem('token');
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    GenderChartComponent,
-    BmiChartComponent,
-    CharacterListComponent,
-    LoginComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MatDividerModule,
-    HttpClientModule,
-    NgxChartsModule,
-    MatProgressSpinnerModule,
-    MatButtonModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatDialogModule,
-    MatIconModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: getToken,
-        whitelistedDomains: ['localhost:8080'],
-      }
-    }),
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [CharacterListComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        GenderChartComponent,
+        BmiChartComponent,
+        CharacterListComponent,
+        LoginComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        MatDividerModule,
+        HttpClientModule,
+        NgxChartsModule,
+        MatProgressSpinnerModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatDialogModule,
+        MatIconModule,
+        JwtModule.forRoot({
+        config: {
+            tokenGetter: getToken,
+            whitelistedDomains: ['localhost:8080'],
+        }
+        }),
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    entryComponents: [CharacterListComponent]
 })
 export class AppModule { }

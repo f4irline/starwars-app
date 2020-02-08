@@ -20,9 +20,9 @@ export class LoginComponent implements OnInit {
         private apiService: ApiService,
         private router: Router,
     ) {
-      if (localStorage.getItem('token')) {
-        this.router.navigateByUrl('/home');
-      }
+        if (localStorage.getItem('token')) {
+            this.router.navigateByUrl('/home');
+        }
     }
 
     ngOnInit() {
@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
     handleLogin(data: Token) {
         localStorage.setItem('token', data.token);
         this.router.navigateByUrl('/home');
-      }
+    }
     
-      handleError(err: any) {
+    handleError(err: any) {
         this.errorString = err.error.msg;
         this.loginFailed = true;
         setTimeout(() => {
