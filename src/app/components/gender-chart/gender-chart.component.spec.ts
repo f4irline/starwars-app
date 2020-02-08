@@ -8,7 +8,7 @@ describe('GenderChartComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ GenderChartComponent ]
+            declarations: [GenderChartComponent],
         }).compileComponents();
     }));
 

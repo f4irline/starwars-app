@@ -1,7 +1,11 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { ChartService, MultiSeriesData, SeriesData } from 'src/app/services/chart/chart.service';
+import {
+    ChartService,
+    MultiSeriesData,
+    SeriesData,
+} from 'src/app/services/chart/chart.service';
 import { CharacterService } from 'src/app/services/character/character.service';
 import { MatDialog } from '@angular/material';
 import { CharacterListComponent } from '../character-list/character-list.component';
@@ -10,7 +14,7 @@ import { Overlay } from '@angular/cdk/overlay';
 @Component({
     selector: 'app-gender-chart',
     templateUrl: './gender-chart.component.html',
-    styleUrls: ['./gender-chart.component.scss']
+    styleUrls: ['./gender-chart.component.scss'],
 })
 export class GenderChartComponent implements OnInit {
     eyeColorSearch$: Observable<string>;
@@ -36,7 +40,7 @@ export class GenderChartComponent implements OnInit {
         private characterService: CharacterService,
         private chartService: ChartService,
         private dialog: MatDialog,
-        private overlay: Overlay,
+        private overlay: Overlay
     ) {
         this.heightChange = new BehaviorSubject<number>(0);
         this.height$ = this.heightChange.asObservable();
@@ -46,11 +50,17 @@ export class GenderChartComponent implements OnInit {
 
         this.data$ = combineLatest(
             this.eyeColorSearch$,
-            this.characterService.characters$,
+            this.characterService.characters$
         ).pipe(
-            map(([term, characters]) => characters.filter((char) => this.filterBySearchTerm(char.eye_color, term))),
-            map((characters) => this.chartService.charactersToGenderByEyeColor(characters)),
-        )
+            map(([term, characters]) =>
+                characters.filter(char =>
+                    this.filterBySearchTerm(char.eye_color, term)
+                )
+            ),
+            map(characters =>
+                this.chartService.charactersToGenderByEyeColor(characters)
+            )
+        );
     }
 
     @HostListener('window:resize', ['$event'])

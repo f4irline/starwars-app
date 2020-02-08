@@ -13,7 +13,7 @@ class MockFormatService extends FormatService {
 
 class MockMathService extends MathService {
     calculateBmi(mass: number, height: number): number {
-        return Math.round(mass / ((height / 100) * (height / 100)) * 10) / 10;
+        return Math.round((mass / ((height / 100) * (height / 100))) * 10) / 10;
     }
 
     convertCmToMeters(height: number): number {
@@ -22,12 +22,14 @@ class MockMathService extends MathService {
 }
 
 describe('ChartService', () => {
-    beforeEach(() => TestBed.configureTestingModule({
-        providers: [
-            { provide: FormatService, useClass: MockFormatService },
-            { provide: MathService, useClass: MockMathService }
-        ]
-    }));
+    beforeEach(() =>
+        TestBed.configureTestingModule({
+            providers: [
+                { provide: FormatService, useClass: MockFormatService },
+                { provide: MathService, useClass: MockMathService },
+            ],
+        })
+    );
 
     it('should be created', () => {
         const service: ChartService = TestBed.get(ChartService);
@@ -36,7 +38,9 @@ describe('ChartService', () => {
 
     it('should return characters mapped to genders by eye colors', () => {
         const service: ChartService = TestBed.get(ChartService);
-        const mappedCharacters = service.charactersToGenderByEyeColor(characters);
+        const mappedCharacters = service.charactersToGenderByEyeColor(
+            characters
+        );
         expect(mappedCharacters[0].name).toBe('Male');
         expect(mappedCharacters[1]).toBeUndefined();
         expect(mappedCharacters[0].series[0].value).toBe(3);
@@ -47,7 +51,9 @@ describe('ChartService', () => {
         const service: ChartService = TestBed.get(ChartService);
         const mappedCharacters = service.charactersToBmiData(characters);
         expect(mappedCharacters[0].name).toBe('Normal');
-        expect(mappedCharacters[0].extra.characters[0].name).toBe('Anakin Skywalker');
+        expect(mappedCharacters[0].extra.characters[0].name).toBe(
+            'Anakin Skywalker'
+        );
         expect(mappedCharacters[1].name).toBe('Unknown');
     });
 });

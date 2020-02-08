@@ -10,8 +10,8 @@ describe('AuthGuard', () => {
             providers: [
                 AuthGuard,
                 { provide: Router, useValue: {} },
-                { provide: HttpClient, useValue: {} }
-            ]
+                { provide: HttpClient, useValue: {} },
+            ],
         });
     });
 

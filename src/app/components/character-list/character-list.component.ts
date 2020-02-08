@@ -18,7 +18,7 @@ export interface SortingBy {
 @Component({
     selector: 'app-character-list',
     templateUrl: './character-list.component.html',
-    styleUrls: ['./character-list.component.scss']
+    styleUrls: ['./character-list.component.scss'],
 })
 export class CharacterListComponent implements OnInit {
     sortByProperty = SortByProperty;
@@ -27,14 +27,20 @@ export class CharacterListComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<CharacterListComponent>,
         private mathService: MathService,
-        @Inject(MAT_DIALOG_DATA) public characters: Character[]) {
-        this.sortByChange = new BehaviorSubject<SortingBy>({property: SortByProperty.NONE});
+        @Inject(MAT_DIALOG_DATA) public characters: Character[]
+    ) {
+        this.sortByChange = new BehaviorSubject<SortingBy>({
+            property: SortByProperty.NONE,
+        });
         this.sortBy$ = this.sortByChange.asObservable();
-        this.sortByChange.subscribe((sortBy) => {
-            if (sortBy.property === SortByProperty.NONE) { return; }
-            this.characters = sortBy.property === SortByProperty.MASS
-            ? this.sortByMass(sortBy.descending)
-            : this.sortByHeight(sortBy.descending);
+        this.sortByChange.subscribe(sortBy => {
+            if (sortBy.property === SortByProperty.NONE) {
+                return;
+            }
+            this.characters =
+                sortBy.property === SortByProperty.MASS
+                    ? this.sortByMass(sortBy.descending)
+                    : this.sortByHeight(sortBy.descending);
         });
     }
 
@@ -42,12 +48,13 @@ export class CharacterListComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     getHeightInMetersString(height: string): string {
         const heightInCm = parseFloat(height);
-        return isNaN(heightInCm) ? 'Unknown' : `${this.mathService.convertCmToMeters(heightInCm)}m`;
+        return isNaN(heightInCm)
+            ? 'Unknown'
+            : `${this.mathService.convertCmToMeters(heightInCm)}m`;
     }
 
     getMassString(mass: string): string {
@@ -56,38 +63,52 @@ export class CharacterListComponent implements OnInit {
 
     sortBy(property: SortByProperty): void {
         this.sortByChange.next({
-        property,
-        descending: this.sortByChange.getValue().property ? !this.sortByChange.getValue().descending : true,
+            property,
+            descending: this.sortByChange.getValue().property
+                ? !this.sortByChange.getValue().descending
+                : true,
         });
     }
 
     sortByMass(descending?: boolean): Character[] {
         return this.characters.sort((a, b) => {
-        const aMass = parseFloat(a.mass);
-        const bMass = parseFloat(b.mass);
-        if (aMass === bMass) { return 0; }
-        if (isNaN(aMass)) { return 1; }
-        if (isNaN(bMass)) { return -1; }
-        return descending ? bMass - aMass : aMass - bMass;
+            const aMass = parseFloat(a.mass);
+            const bMass = parseFloat(b.mass);
+            if (aMass === bMass) {
+                return 0;
+            }
+            if (isNaN(aMass)) {
+                return 1;
+            }
+            if (isNaN(bMass)) {
+                return -1;
+            }
+            return descending ? bMass - aMass : aMass - bMass;
         });
     }
 
     sortByHeight(descending?: boolean): Character[] {
         return this.characters.sort((a, b) => {
-        const aHeight = parseFloat(a.height);
-        const bHeight = parseFloat(b.height);
-        if (aHeight === bHeight) { return 0; }
-        if (isNaN(aHeight)) { return 1; }
-        if (isNaN(bHeight)) { return -1; }
-        return descending ? bHeight - aHeight : aHeight - bHeight;
+            const aHeight = parseFloat(a.height);
+            const bHeight = parseFloat(b.height);
+            if (aHeight === bHeight) {
+                return 0;
+            }
+            if (isNaN(aHeight)) {
+                return 1;
+            }
+            if (isNaN(bHeight)) {
+                return -1;
+            }
+            return descending ? bHeight - aHeight : aHeight - bHeight;
         });
     }
 
     getIconString(sortBy: SortingBy, property: SortByProperty): string {
         return sortBy.property === property
-        ? sortBy.descending
-            ? 'arrow_down'
-            : 'arrow_up'
-        : 'unfold_more';
+            ? sortBy.descending
+                ? 'arrow_down'
+                : 'arrow_up'
+            : 'unfold_more';
     }
 }

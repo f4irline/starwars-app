@@ -6,4 +6,4 @@ export enum BmiClass {
     CLASS_2_OBESE = 'Class 2 obese',
     CLASS_3_OBESE = 'Class 3 obese',
     UNKNOWN = 'Unknown',
-};
+}

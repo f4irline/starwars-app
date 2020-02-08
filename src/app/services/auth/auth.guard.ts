@@ -6,14 +6,10 @@ import { ApiService } from '../api/api.service';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-
-    constructor(
-        private router: Router,
-        private apiService: ApiService,
-    ) {}
+    constructor(private router: Router, private apiService: ApiService) {}
 
     canActivate(): Observable<boolean> {
         return this.checkLogin();
@@ -21,16 +17,13 @@ export class AuthGuard implements CanActivate {
 
     checkLogin(): Observable<boolean> {
         return this.apiService.profile().pipe(
-            map(
-                res => {
+            map(res => {
                 return this.profileSuccess(res);
-                },
-            ),
-            catchError((err) => {
+            }),
+            catchError(err => {
                 return of(this.profileError(err));
             })
         );
-
     }
 
     profileSuccess(res: User): boolean {

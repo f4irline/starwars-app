@@ -1,7 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CharacterListComponent, SortingBy, SortByProperty } from './character-list.component';
-import { MatIconModule, MatDividerModule, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {
+    CharacterListComponent,
+    SortingBy,
+    SortByProperty,
+} from './character-list.component';
+import {
+    MatIconModule,
+    MatDividerModule,
+    MatDialogModule,
+    MatDialogRef,
+    MAT_DIALOG_DATA,
+} from '@angular/material';
 import { Character } from 'src/app/models/character';
 
 describe('CharacterListComponent', () => {
@@ -10,16 +20,12 @@ describe('CharacterListComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ CharacterListComponent ],
-            imports: [
-                MatIconModule,
-                MatDividerModule,
-                MatDialogModule,
-            ],
+            declarations: [CharacterListComponent],
+            imports: [MatIconModule, MatDividerModule, MatDialogModule],
             providers: [
                 { provide: MatDialogRef, useValue: {} },
                 { provide: MAT_DIALOG_DATA, useValue: [] },
-            ]
+            ],
         }).compileComponents();
     }));
 
@@ -41,7 +47,7 @@ describe('CharacterListComponent', () => {
                 name: 'Lea',
                 mass: '75',
                 height: '175',
-            } as Character
+            } as Character,
         ];
         fixture.detectChanges();
     });
@@ -75,18 +81,18 @@ describe('CharacterListComponent', () => {
             {
                 name: 'Luke',
                 mass: '85',
-                height: '165'
+                height: '165',
             } as Character,
             {
                 name: 'Lea',
                 mass: '75',
-                height: '175'
+                height: '175',
             } as Character,
             {
                 name: 'Steve',
                 mass: '65',
                 height: '185',
-            } as Character
+            } as Character,
         ];
 
         const result = component.sortByMass(true);
@@ -98,12 +104,12 @@ describe('CharacterListComponent', () => {
             {
                 name: 'Steve',
                 mass: '65',
-                height: '185'
+                height: '185',
             } as Character,
             {
                 name: 'Lea',
                 mass: '75',
-                height: '175'
+                height: '175',
             } as Character,
             {
                 name: 'Luke',
@@ -163,7 +169,10 @@ describe('CharacterListComponent', () => {
         const sortingByValue: SortingBy = {
             property: SortByProperty.NONE,
         };
-        const result = component.getIconString(sortingByValue, SortByProperty.MASS);
+        const result = component.getIconString(
+            sortingByValue,
+            SortByProperty.MASS
+        );
         expect(result).toEqual('unfold_more');
     });
 
@@ -173,7 +182,10 @@ describe('CharacterListComponent', () => {
             descending: true,
         };
 
-        const result = component.getIconString(sortingByValue, SortByProperty.HEIGHT);
+        const result = component.getIconString(
+            sortingByValue,
+            SortByProperty.HEIGHT
+        );
         expect(result).toEqual('arrow_down');
     });
 
@@ -183,7 +195,10 @@ describe('CharacterListComponent', () => {
             descending: false,
         };
 
-        const result = component.getIconString(sortingByValue, SortByProperty.HEIGHT);
+        const result = component.getIconString(
+            sortingByValue,
+            SortByProperty.HEIGHT
+        );
         expect(result).toEqual('arrow_up');
     });
 });

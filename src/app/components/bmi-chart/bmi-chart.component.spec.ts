@@ -11,13 +11,13 @@ describe('BmiChartComponent', () => {
     let fixture: ComponentFixture<BmiChartComponent>;
     let chartService: ChartService;
 
-  beforeEach(async(() => {
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ BmiChartComponent ],
+            declarations: [BmiChartComponent],
             imports: [
                 NgxChartsModule,
                 MatDialogModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
             ],
         }).compileComponents();
     }));
@@ -43,13 +43,13 @@ describe('BmiChartComponent', () => {
     it('should have some data', (done: DoneFn) => {
         spyOn(chartService, 'charactersToBmiData').and.returnValue([
             {
-                name: 'Normal'
-            }
+                name: 'Normal',
+            },
         ] as SeriesData[]);
 
         component.data$.subscribe(data => {
             expect(data.length).toBeGreaterThan(0);
             done();
         });
-    })
+    });
 });

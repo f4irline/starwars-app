@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { BmiClass } from 'src/app/models/bmi';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class MathService {
-
-    constructor() { }
+    constructor() {}
 
     calculateBmi(mass: number, height: number): number {
-        if (!height) { throw new Error('Can not divide by zero.'); }
+        if (!height) {
+            throw new Error('Can not divide by zero.');
+        }
         const heightInMeters = this.convertCmToMeters(height);
-        const bmi = Math.round(mass / (heightInMeters * heightInMeters) * 10) / 10;
+        const bmi =
+            Math.round((mass / (heightInMeters * heightInMeters)) * 10) / 10;
         return bmi;
     }
 
@@ -19,14 +21,14 @@ export class MathService {
         return bmi >= 40
             ? BmiClass.CLASS_3_OBESE
             : bmi >= 35
-                ? BmiClass.CLASS_2_OBESE
-                : bmi >= 30
-                    ? BmiClass.CLASS_1_OBESE
-                    : bmi >= 25
-                        ? BmiClass.OVERWEIGHT
-                        : bmi >= 18.5
-                            ? BmiClass.NORMAL
-                            : BmiClass.UNDERWEIGHT;
+            ? BmiClass.CLASS_2_OBESE
+            : bmi >= 30
+            ? BmiClass.CLASS_1_OBESE
+            : bmi >= 25
+            ? BmiClass.OVERWEIGHT
+            : bmi >= 18.5
+            ? BmiClass.NORMAL
+            : BmiClass.UNDERWEIGHT;
     }
 
     convertCmToMeters(centimeters: number): number {

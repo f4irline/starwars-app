@@ -1,6 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { ApiService } from 'src/app/services/api/api.service';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ChartService, SeriesData } from 'src/app/services/chart/chart.service';
 import { CharacterService } from 'src/app/services/character/character.service';
@@ -11,7 +10,7 @@ import { Overlay } from '@angular/cdk/overlay';
 @Component({
     selector: 'app-bmi-chart',
     templateUrl: './bmi-chart.component.html',
-    styleUrls: ['./bmi-chart.component.scss']
+    styleUrls: ['./bmi-chart.component.scss'],
 })
 export class BmiChartComponent implements OnInit {
     showXAxis: boolean = true;
@@ -34,13 +33,13 @@ export class BmiChartComponent implements OnInit {
         private characterService: CharacterService,
         private chartService: ChartService,
         private dialog: MatDialog,
-        private overlay: Overlay,
+        private overlay: Overlay
     ) {
         this.heightChange = new BehaviorSubject<number>(0);
         this.height$ = this.heightChange.asObservable();
 
         this.data$ = this.characterService.characters$.pipe(
-            map(res => this.chartService.charactersToBmiData(res)),
+            map(res => this.chartService.charactersToBmiData(res))
         );
     }
 
