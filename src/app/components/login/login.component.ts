@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Token } from 'src/app/models/token';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-login',
@@ -16,7 +17,13 @@ export class LoginComponent implements OnInit {
     loginFailed: boolean = false;
     hide: boolean = true;
 
-    constructor(private apiService: ApiService, private router: Router) {
+    constructor(
+        private apiService: ApiService,
+        private router: Router,
+        private titleService: Title
+    ) {
+        this.titleService.setTitle('Login');
+
         if (localStorage.getItem('token')) {
             this.router.navigateByUrl('/home');
         }

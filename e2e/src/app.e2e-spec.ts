@@ -1,23 +1,50 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, logging, element, by } from 'protractor';
 
 describe('workspace-project App', () => {
-  let page: AppPage;
+    let page: AppPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+    beforeEach(() => {
+        page = new AppPage();
+    });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('angular-testing app is running!');
-  });
+    it('should display login page', () => {
+        page.navigateTo();
+        expect(page.getTitleText()).toEqual('Enter your username and password');
+    });
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
-  });
+    it('should login user', () => {
+        page.navigateTo();
+        page.focusUsernameField();
+        page.enterUsername('Tommi');
+        page.focusPasswordField();
+        page.enterPassword('12345');
+        page.login();
+        expect(page.getTitle()).toEqual('Home');
+    });
+
+    it('should not login user', () => {
+        page.navigateTo();
+        page.focusUsernameField();
+        page.enterUsername('Wrong username');
+        page.focusPasswordField();
+        page.enterPassword('12345');
+        page.login();
+        expect(element(by.css('.login-error'))).toBeDefined();
+    });
+
+    afterEach(async () => {
+        browser.executeScript('window.localStorage.clear();');
+
+        // Assert that there are no errors emitted from the browser
+        // const logs = await browser
+        //     .manage()
+        //     .logs()
+        //     .get(logging.Type.BROWSER);
+        // expect(logs).not.toContain(
+        //     jasmine.objectContaining({
+        //         level: logging.Level.SEVERE,
+        //     } as logging.Entry)
+        // );
+    });
 });

@@ -5,6 +5,7 @@ import { CharacterService } from 'src/app/services/character/character.service';
 import { ApplicationService } from 'src/app/services/application/application.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-home',
@@ -18,8 +19,11 @@ export class HomeComponent implements OnInit {
         private apiService: ApiService,
         private characterService: CharacterService,
         private applicationService: ApplicationService,
-        private router: Router
+        private router: Router,
+        private titleService: Title
     ) {
+        this.titleService.setTitle('Home');
+
         this.loading$ = this.applicationService.loading$;
 
         this.reloadData();
