@@ -1,11 +1,11 @@
-import { AppPage } from './login.po';
+import { LoginPage } from './login.po';
 import { browser, element, by } from 'protractor';
 
-describe('workspace-project App', () => {
-    let page: AppPage;
+describe('Login Page', () => {
+    let page: LoginPage;
 
     beforeEach(() => {
-        page = new AppPage();
+        page = new LoginPage();
     });
 
     it('should display login page', () => {
