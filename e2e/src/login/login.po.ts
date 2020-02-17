@@ -11,14 +11,6 @@ export class LoginPage {
         ).getText() as Promise<string>;
     }
 
-    focusUsernameField() {
-        return element(by.id('username')).click();
-    }
-
-    focusPasswordField() {
-        return element(by.id('password')).click();
-    }
-
     login() {
         return element(by.id('submit')).click();
     }
@@ -32,6 +24,7 @@ export class LoginPage {
     }
 
     enterUsername(username: string) {
+        element(by.id('username')).click();
         browser
             .actions()
             .sendKeys(username)
@@ -39,6 +32,7 @@ export class LoginPage {
     }
 
     enterPassword(password: string) {
+        element(by.id('password')).click();
         browser
             .actions()
             .sendKeys(password)
