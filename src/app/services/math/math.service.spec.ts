@@ -4,7 +4,11 @@ import { MathService } from './math.service';
 import { BmiClass } from 'src/app/models/bmi';
 
 describe('MathService', () => {
-    beforeEach(() => TestBed.configureTestingModule({}));
+    beforeEach(() =>
+        TestBed.configureTestingModule({
+            providers: [MathService],
+        })
+    );
 
     it('should be created', () => {
         const service: MathService = TestBed.get(MathService);
@@ -13,8 +17,11 @@ describe('MathService', () => {
 
     it('should calculate bmi', () => {
         const service: MathService = TestBed.get(MathService);
-        const result = service.calculateBmi(75, 185);
-        expect(result).toBe(21.9);
+        const height = 185;
+        const mass = 75;
+        const expected = 21.9;
+        const result = service.calculateBmi(mass, height);
+        expect(result).toBe(expected);
     });
 
     it('should throw error', () => {

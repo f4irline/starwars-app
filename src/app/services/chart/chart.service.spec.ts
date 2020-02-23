@@ -5,31 +5,37 @@ import { characters } from 'src/app/dummy-data/characters';
 import { FormatService } from '../format/format.service';
 import { MathService } from '../math/math.service';
 
-class MockFormatService extends FormatService {
-    capitalizeFirstCharacter(str: string): string {
-        return str.slice(0, 1).toUpperCase() + str.substr(1);
-    }
-}
-
 class MockMathService extends MathService {
     calculateBmi(mass: number, height: number): number {
         return Math.round((mass / ((height / 100) * (height / 100))) * 10) / 10;
     }
 
-    convertCmToMeters(height: number): number {
-        return 10;
+    convertCmToMeters(centimeters: number): number {
+        return centimeters / 100;
     }
 }
 
 describe('ChartService', () => {
+    let formatServiceSpy: jasmine.Spy;
     beforeEach(() =>
         TestBed.configureTestingModule({
             providers: [
-                { provide: FormatService, useClass: MockFormatService },
-                { provide: MathService, useClass: MockMathService },
+                ChartService,
+                FormatService,
+                {
+                    provide: MathService,
+                    useClass: MockMathService,
+                },
             ],
         })
     );
+
+    beforeEach(() => {
+        formatServiceSpy = spyOn(
+            FormatService.prototype,
+            'capitalizeFirstCharacter'
+        ).and.callFake(str => str.slice(0, 1).toUpperCase() + str.substr(1));
+    });
 
     it('should be created', () => {
         const service: ChartService = TestBed.get(ChartService);
@@ -45,6 +51,7 @@ describe('ChartService', () => {
         expect(mappedCharacters[1]).toBeUndefined();
         expect(mappedCharacters[0].series[0].value).toBe(3);
         expect(mappedCharacters[0].series[0].name).toBe('Blue');
+        expect(formatServiceSpy).toHaveBeenCalled();
     });
 
     it('should return characters mapped by bmi classes', () => {
