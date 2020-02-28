@@ -5,30 +5,48 @@ import { characters } from 'src/app/dummy-data/characters';
 import { FormatService } from '../format/format.service';
 import { MathService } from '../math/math.service';
 
-class MockMathService extends MathService {
-    calculateBmi(mass: number, height: number): number {
-        return Math.round((mass / ((height / 100) * (height / 100))) * 10) / 10;
-    }
-
-    convertCmToMeters(height: number): number {
-        return 10;
-    }
-}
-
 describe('ChartService', () => {
-    let formatServiceSpy: jest.SpyInstance;
+    let capitalizeFirstCharacterSpy: jest.SpyInstance;
+    let mathServiceSpy: jest.Mocked<{
+        calculateBmi: jest.Mock;
+        convertCmToMeters: jest.Mock;
+        getObesityClass: jest.Mock;
+    }>;
+
     beforeEach(() =>
         TestBed.configureTestingModule({
-            providers: [{ provide: MathService, useClass: MockMathService }],
+            providers: [
+                {
+                    provide: MathService,
+                    useValue: {
+                        calculateBmi: jest.fn(),
+                        convertCmToMeters: jest.fn(),
+                        getObesityClass: jest.fn(),
+                    },
+                },
+            ],
         })
     );
 
     beforeEach(() => {
-        formatServiceSpy = jest
+        capitalizeFirstCharacterSpy = jest
             .spyOn(FormatService.prototype, 'capitalizeFirstCharacter')
             .mockImplementation(
                 (str: string) => str.slice(0, 1).toUpperCase() + str.substr(1)
             );
+
+        mathServiceSpy = TestBed.get(MathService);
+
+        mathServiceSpy.calculateBmi.mockImplementation(
+            (mass: number, height: number) =>
+                Math.round((mass / ((height / 100) * (height / 100))) * 10) / 10
+        );
+
+        mathServiceSpy.convertCmToMeters.mockImplementation(
+            (centimeters: number) => centimeters / 100
+        );
+
+        mathServiceSpy.getObesityClass.mockReturnValue('Normal');
     });
 
     it('should be created', () => {
@@ -45,7 +63,7 @@ describe('ChartService', () => {
         expect(mappedCharacters[1]).toBeUndefined();
         expect(mappedCharacters[0].series[0].value).toBe(3);
         expect(mappedCharacters[0].series[0].name).toBe('Blue');
-        expect(formatServiceSpy).toHaveBeenCalled();
+        expect(capitalizeFirstCharacterSpy).toHaveBeenCalled();
     });
 
     it('should return characters mapped by bmi classes', () => {
@@ -56,5 +74,6 @@ describe('ChartService', () => {
             'Anakin Skywalker'
         );
         expect(mappedCharacters[1].name).toBe('Unknown');
+        expect(mathServiceSpy.calculateBmi).toHaveBeenCalled();
     });
 });
