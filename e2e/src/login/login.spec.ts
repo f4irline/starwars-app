@@ -4,11 +4,9 @@ import { HomePage } from '../home/home.po';
 
 describe('Login Page', () => {
     let page: LoginPage;
-    let homePage: HomePage;
 
     beforeEach(() => {
         page = new LoginPage();
-        homePage = new HomePage();
     });
 
     it('should display login page', () => {
@@ -18,17 +16,13 @@ describe('Login Page', () => {
 
     it('should not login user', () => {
         page.navigateTo();
-        page.enterUsername('Wrong username');
-        page.enterPassword('12345');
-        page.login();
+        page.login('Wrong username', '12345');
         expect(element(by.css('.login-error'))).toBeDefined();
     });
 
     it('should login user', () => {
         page.navigateTo();
-        page.enterUsername('Tommi');
-        page.enterPassword('12345');
-        page.login();
+        page.login('Tommi', '12345');
         expect(browser.getTitle()).toEqual('Home');
     });
 
