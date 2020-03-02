@@ -15,10 +15,6 @@ export class LoginPage {
         return element(by.id('submit')).click();
     }
 
-    getTitle() {
-        return browser.getTitle() as Promise<string>;
-    }
-
     getErrorText() {
         return element(by.css('.login-error'));
     }
