@@ -14,11 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands';
-
-Cypress.config({
-    baseUrl: 'http://localhost:4200',
-});
+import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
