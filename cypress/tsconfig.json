@@ -1,8 +1,10 @@
 {
-    "include": ["integration/*.ts", "../node_modules/cypress"],
     "compilerOptions": {
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "skipLibCheck": true
-    }
+        "strict": true,
+        "baseUrl": "../node_modules",
+        "target": "es5",
+        "lib": ["es5", "dom"],
+        "types": ["cypress", "node"]
+    },
+    "include": ["**/*.ts"]
 }
