@@ -30,11 +30,11 @@ describe('Login Page', () => {
 
     it('should remember user login credentials', () => {
         page.navigateTo();
-        browser.wait(browser.ExpectedConditions.urlContains('home'), 2000);
+        browser.wait(browser.ExpectedConditions.urlContains('home'), 10000);
         expect(browser.getTitle()).toEqual('Home');
     });
 
-    afterEach(() => {
+    afterAll(() => {
         browser.executeScript('window.localStorage.clear();');
     });
 });

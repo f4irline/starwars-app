@@ -11,20 +11,28 @@ export class LoginPage {
         ).getText() as Promise<string>;
     }
 
-    login(username: string, password: string) {
+    login() {
+        return element(by.id('submit')).click();
+    }
+
+    getTitle() {
+        return browser.getTitle() as Promise<string>;
+    }
+
+    enterUsername(username: string) {
         element(by.id('username')).click();
         browser
             .actions()
             .sendKeys(username)
             .perform();
+    }
 
+    enterPassword(password: string) {
         element(by.id('password')).click();
         browser
             .actions()
             .sendKeys(password)
             .perform();
-
-        return element(by.id('submit')).click();
     }
 
     getErrorText() {
