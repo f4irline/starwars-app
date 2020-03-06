@@ -7,23 +7,25 @@ describe('Login Page', () => {
 
     beforeEach(() => {
         page = new LoginPage();
+        page.navigateTo();
     });
 
-    it('should display login page', () => {
-        page.navigateTo();
+    it('should render login page', () => {
         expect(page.getTitleText()).toEqual('Enter your username and password');
     });
 
     it('should not login user', () => {
-        page.navigateTo();
-        page.login('Wrong username', '12345');
-        expect(element(by.css('.login-error'))).toBeDefined();
+        page.enterUsername('Wrong username');
+        page.enterPassword('12345');
+        page.login();
+        expect(element(by.css('.login-error')).isPresent()).toBeTruthy();
     });
 
     it('should login user', () => {
-        page.navigateTo();
-        page.login('Tommi', '12345');
-        expect(browser.getTitle()).toEqual('Home');
+        page.enterUsername('Tommi');
+        page.enterPassword('12345');
+        page.login();
+        expect(page.getTitle()).toEqual('Home');
     });
 
     it('should remember user login credentials', () => {
@@ -32,7 +34,7 @@ describe('Login Page', () => {
         expect(browser.getTitle()).toEqual('Home');
     });
 
-    afterAll(() => {
+    afterEach(() => {
         browser.executeScript('window.localStorage.clear();');
     });
 });

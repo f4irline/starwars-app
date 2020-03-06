@@ -1,17 +1,31 @@
 import { browser, by, element } from 'protractor';
-import { LoginPage } from '../login/login.po';
 
 export class HomePage {
     navigateTo() {
         return browser.get(`${browser.baseUrl}/home`) as Promise<any>;
     }
 
-    login() {
-        new LoginPage().login('Tommi', '12345');
-        browser.refresh();
+    getTitle() {
+        return browser.getTitle() as Promise<string>;
     }
 
-    getHeaderTitle(): Promise<string> {
-        return element(by.css('app-root .home .header h3')).getText() as Promise<string>;
+    getBmiClassList() {
+        return element
+            .all(by.css('app-root svg.ngx-charts [ngx-charts-bar] path.bar'))
+            .first();
+    }
+
+    getCharactersModal() {
+        return element(
+            by.css(
+                'app-root .cdk-overlay-container mat-dialog-container app-character-list ul'
+            )
+        );
+    }
+
+    getHeader() {
+        return element(
+            by.css('app-root .home .header h1')
+        ).getText() as Promise<string>;
     }
 }
