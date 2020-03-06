@@ -14,23 +14,27 @@ describe('Login Page', () => {
         expect(page.getTitleText()).toEqual('Enter your username and password');
     });
 
-    it('should not login user', () => {
-        page.enterUsername('Wrong username');
-        page.enterPassword('12345');
-        page.login();
-        expect(element(by.css('.login-error')).isPresent()).toBeTruthy();
+    it('should not login user', async () => {
+        await page.enterUsername('Wrong username');
+        await page.enterPassword('12345');
+        await page.login();
+        const errorText = await page.getErrorText();
+        expect(errorText.isPresent()).toBeTruthy();
     });
 
-    it('should login user', () => {
-        page.enterUsername('Tommi');
-        page.enterPassword('12345');
-        page.login();
+    it('should login user', async () => {
+        await page.enterUsername('Tommi');
+        await page.enterPassword('12345');
+        await page.login();
         expect(page.getTitle()).toEqual('Home');
     });
 
-    it('should remember user login credentials', () => {
-        page.navigateTo();
-        browser.wait(browser.ExpectedConditions.urlContains('home'), 10000);
+    it('should remember user login credentials', async () => {
+        await page.navigateTo();
+        await browser.wait(
+            browser.ExpectedConditions.urlContains('home'),
+            10000
+        );
         expect(browser.getTitle()).toEqual('Home');
     });
 

@@ -21,7 +21,7 @@ export class LoginPage {
 
     enterUsername(username: string) {
         element(by.id('username')).click();
-        browser
+        return browser
             .actions()
             .sendKeys(username)
             .perform();
@@ -29,13 +29,15 @@ export class LoginPage {
 
     enterPassword(password: string) {
         element(by.id('password')).click();
-        browser
+        return browser
             .actions()
             .sendKeys(password)
             .perform();
     }
 
     getErrorText() {
-        return element(by.css('.login-error'));
+        return element(
+            by.css('app-root .container .login .header .action .login-error')
+        );
     }
 }
