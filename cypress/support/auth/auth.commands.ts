@@ -4,6 +4,12 @@
 Cypress.Commands.add(
     'login',
     (): Cypress.Chainable => {
-        return cy.get('#login').type('Test');
+        return cy
+            .get('[data-cy=username]')
+            .type('Tommi')
+            .get('[data-cy=password]')
+            .type('12345')
+            .get('[data-cy=login]')
+            .click();
     }
 );
