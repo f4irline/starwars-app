@@ -19,7 +19,7 @@ describe('Login Page', () => {
         await page.enterPassword('12345');
         await page.login();
         const errorText = await page.getErrorText();
-        expect(errorText.isPresent()).toBeTruthy();
+        expect(errorText.getText()).toEqual('Wrong username or password.');
     });
 
     it('should login user', async () => {
@@ -33,7 +33,7 @@ describe('Login Page', () => {
         await page.navigateTo();
         await browser.wait(
             browser.ExpectedConditions.urlContains('home'),
-            10000
+            5000
         );
         expect(browser.getTitle()).toEqual('Home');
     });

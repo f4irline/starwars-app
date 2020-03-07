@@ -37,7 +37,7 @@ export class LoginPage {
 
     getErrorText() {
         return element(
-            by.css('app-root .container .login .header .action .login-error')
+            by.css('app-root .container .login .action p')
         );
     }
 }
