@@ -24,9 +24,9 @@ describe('Home Page', () => {
         );
     });
 
-    it('should open characters list', async () => {
-        const bmiClassList = await homePage.getBmiClassList();
-        await browser
+    it('should open characters list', () => {
+        const bmiClassList = homePage.getBmiClassList();
+        browser
             .actions()
             .mouseMove(bmiClassList)
             .click()
