@@ -31,7 +31,7 @@ describe('Home Page', () => {
             .mouseMove(bmiClassList)
             .click()
             .perform();
-        expect(homePage.getCharactersModal().isPresent()).toBeTruthy();
+        expect(homePage.getCharactersModal().isDisplayed()).toBeTruthy();
     });
 
     afterAll(() => {

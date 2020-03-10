@@ -18,7 +18,7 @@ export class HomePage {
     getCharactersModal() {
         return element(
             by.css(
-                'app-root .cdk-overlay-container mat-dialog-container app-character-list ul'
+                'app-root .cdk-overlay-container mat-dialog-container app-character-list'
             )
         );
     }
