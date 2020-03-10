@@ -24,16 +24,6 @@ describe('Home Page', () => {
         );
     });
 
-    it('should open characters list', () => {
-        const bmiClassList = homePage.getBmiClassList();
-        browser
-            .actions()
-            .mouseMove(bmiClassList)
-            .click()
-            .perform();
-        expect(homePage.getCharactersModal().isDisplayed()).toBeTruthy();
-    });
-
     afterAll(() => {
         browser.executeScript('window.localStorage.clear();');
     });
