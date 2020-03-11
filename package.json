@@ -9,6 +9,7 @@
         "test": "jest",
         "lint": "ng lint",
         "e2e": "start-test start-all http://localhost:4200 cypress:run",
+        "e2e:browser": "start-test start-all http://localhost:4200 cypress:open",
         "start-dummy-server": "cd dummy-server && node server.js",
         "test:watch": "jest --watch",
         "cypress:open": "cypress open",
