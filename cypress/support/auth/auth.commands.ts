@@ -3,12 +3,12 @@
 // create various custom commands and overwrite
 Cypress.Commands.add(
     'login',
-    (): Cypress.Chainable => {
+    (username: string, password: string): Cypress.Chainable => {
         return cy
             .get('[data-cy=username]')
-            .type('Tommi')
+            .type(username)
             .get('[data-cy=password]')
-            .type('12345')
+            .type(password)
             .get('[data-cy=login]')
             .click();
     }
