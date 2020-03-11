@@ -8,9 +8,7 @@ describe('Home Page', () => {
     beforeAll(() => {
         const loginPage = new LoginPage();
         loginPage.navigateTo();
-        loginPage.enterUsername('Tommi');
-        loginPage.enterPassword('12345');
-        loginPage.login();
+        loginPage.login('Tommi', '12345');
     });
 
     beforeEach(() => {

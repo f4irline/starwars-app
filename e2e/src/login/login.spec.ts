@@ -14,17 +14,13 @@ describe('Login Page', () => {
     });
 
     it('should not login user', () => {
-        page.enterUsername('Wrong username');
-        page.enterPassword('12345');
-        page.login();
+        page.login('Wrong username', '12345');
         const errorText = page.getErrorText();
         expect(errorText.getText()).toEqual('Wrong username or password.');
     });
 
     it('should login user', () => {
-        page.enterUsername('Tommi');
-        page.enterPassword('12345');
-        page.login();
+        page.login('Tommi', '12345');
         expect(page.getTitle()).toEqual('Home');
     });
 

@@ -11,7 +11,19 @@ export class LoginPage {
         ).getText() as Promise<string>;
     }
 
-    login() {
+    login(username: string, password: string) {
+        element(by.id('username')).click();
+        browser
+            .actions()
+            .sendKeys(username)
+            .perform();
+
+        element(by.id('password')).click();
+        browser
+            .actions()
+            .sendKeys(password)
+            .perform();
+
         return element(by.id('submit')).click();
     }
 
@@ -19,25 +31,7 @@ export class LoginPage {
         return browser.getTitle() as Promise<string>;
     }
 
-    enterUsername(username: string) {
-        element(by.id('username')).click();
-        return browser
-            .actions()
-            .sendKeys(username)
-            .perform();
-    }
-
-    enterPassword(password: string) {
-        element(by.id('password')).click();
-        return browser
-            .actions()
-            .sendKeys(password)
-            .perform();
-    }
-
     getErrorText() {
-        return element(
-            by.css('app-root .container .login .action p')
-        );
+        return element(by.css('app-root .container .login .action p'));
     }
 }
