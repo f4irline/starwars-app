@@ -8,7 +8,7 @@
             <mat-form-field>
                 <input
                     data-cy="username"
-                    id="login"
+                    id="username"
                     [(ngModel)]="userName"
                     matInput
                     placeholder="Name"
@@ -17,6 +17,7 @@
             <mat-form-field>
                 <input
                     data-cy="password"
+                    id="password"
                     [type]="hide ? 'password' : 'text'"
                     [(ngModel)]="password"
                     matInput
@@ -32,6 +33,7 @@
         <div class="action">
             <button
                 data-cy="login"
+                id="submit"
                 mat-raised-button
                 [color]="'primary'"
                 (click)="login()"

@@ -5,11 +5,11 @@ Cypress.Commands.add(
     'login',
     (username: string, password: string): Cypress.Chainable => {
         return cy
-            .get('[data-cy=username]')
+            .get('#username')
             .type(username)
-            .get('[data-cy=password]')
+            .get('#password')
             .type(password)
-            .get('[data-cy=login]')
+            .get('#submit')
             .click();
     }
 );

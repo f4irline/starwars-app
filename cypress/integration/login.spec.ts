@@ -1,20 +1,16 @@
-context('Login', () => {
+describe('Login', () => {
     beforeEach(() => {
         cy.visit('');
     });
 
-    it('should work', () => {
-        const header = cy.get('h1');
-        header.should('contain.text', 'Star Wars Application');
+    it('should render login page', () => {
+        const titleText = cy.get('app-root .container .login .header');
+        titleText.should('contain.text', 'Enter your username and password');
     });
 
     it('should login', () => {
         cy.login('Tommi', '12345');
-        const header = cy.get('.home .header h1');
-        header.should('contain.text', 'Star Wars Characters');
-    });
-
-    after(() => {
-        cy.clearLocalStorage();
+        const title = cy.title();
+        title.should('eq', 'Home');
     });
 });
