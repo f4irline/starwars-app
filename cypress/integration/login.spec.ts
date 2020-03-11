@@ -1,4 +1,4 @@
-context('Home', () => {
+context('Login', () => {
     beforeEach(() => {
         cy.visit('');
     });
