@@ -40,7 +40,9 @@
             >
                 Login
             </button>
-            <p [class.login-error]="loginFailed">{{ errorString }}</p>
+            <p [attr.data-cy]="'error-text'" [class.login-error]="loginFailed">
+                {{ errorString }}
+            </p>
         </div>
     </div>
 </div>

@@ -1,25 +1,38 @@
 <div class="home">
     <div class="header">
-        <h1>Star Wars Characters</h1>
-        <h3>Star Wars related characters charts</h3>     
+        <h1 [attr.data-cy]="'home-header'">Star Wars Characters</h1>
+        <h3>Star Wars related characters charts</h3>
         <mat-divider></mat-divider>
     </div>
     <div class="actions">
-        <button mat-raised-button (click)="reloadData()" [color]="'primary'" [disabled]="loading$ | async">Refresh data!</button>
-        <button mat-raised-button (click)="reloadPageData()" [color]="'primary'" [disabled]="loading$ | async">Get random page data!</button>
+        <button
+            mat-raised-button
+            (click)="reloadData()"
+            [color]="'primary'"
+            [disabled]="loading$ | async"
+        >
+            Refresh data!
+        </button>
+        <button
+            mat-raised-button
+            (click)="reloadPageData()"
+            [color]="'primary'"
+            [disabled]="loading$ | async"
+        >
+            Get random page data!
+        </button>
     </div>
     <ng-container *ngIf="loading$ | async; else charts">
         <div class="spinner">
-            <mat-spinner [diameter]="300" [color]="'accent'">
-            </mat-spinner>    
-        </div>    
+            <mat-spinner [diameter]="300" [color]="'accent'"> </mat-spinner>
+        </div>
     </ng-container>
     <ng-template #charts>
         <div class="charts">
             <app-gender-chart></app-gender-chart>
             <mat-divider></mat-divider>
             <app-bmi-chart></app-bmi-chart>
-        </div>    
+        </div>
     </ng-template>
 </div>
 <div class="logout-wrapper">
