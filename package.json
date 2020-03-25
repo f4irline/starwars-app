@@ -13,7 +13,8 @@
         "start-dummy-server": "cd dummy-server && node server.js",
         "test:watch": "jest --watch",
         "cypress:open": "cypress open",
-        "cypress:run": "cypress run"
+        "cypress:run": "cypress run",
+        "cypress:run:browser": "cypress run -b chrome"
     },
     "private": true,
     "dependencies": {
